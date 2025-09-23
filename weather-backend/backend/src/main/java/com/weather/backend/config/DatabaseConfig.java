@@ -26,7 +26,7 @@ public class DatabaseConfig {
                      (isDocker ? "mysql" : "localhost");
         String url = "jdbc:mysql://" + host + ":3306/";
         String username = "root";
-        String password = "Kdk@2003";
+        String password = "root";
 
         // Read username and password from environment variables for consistency
         String envUsername = System.getenv("SPRING_DATASOURCE_USERNAME");
