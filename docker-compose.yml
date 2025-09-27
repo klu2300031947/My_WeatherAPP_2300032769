@@ -5,12 +5,12 @@ services:
     image: mysql:8.0
     container_name: weather-mysql
     environment:
-      MYSQL_ROOT_PASSWORD: Kdk@2003
+      MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: weatherdb
       MYSQL_USER: weatheruser
       MYSQL_PASSWORD: weatherpass
     ports:
-      - "3307:3306"
+      - "3307:3306"  # Maps container port 3306 to host port 3307
     volumes:
       - mysql_data:/var/lib/mysql
     command: --default-authentication-plugin=mysql_native_password
@@ -21,14 +21,16 @@ services:
       dockerfile: Dockerfile
     container_name: weather-backend
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/weatherdb?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: weatherdb
       SPRING_DATASOURCE_USERNAME: weatheruser
       SPRING_DATASOURCE_PASSWORD: weatherpass
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
       JWT_SECRET: mySecretKey123456789012345678901234567890
       JWT_EXPIRATION: 86400000
     ports:
-      - "8080:8080"
+      - "8081:8080"
     depends_on:
       - mysql
 
